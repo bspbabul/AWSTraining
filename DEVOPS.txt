@@ -1,0 +1,116 @@
+DEVOPS
+------
+->culture that improve deliver.
+->Process of the improving delivery by ensuring proper
+automation
+quality
+continuous monitoring
+and continuous testing.
+
+Software development lifecycle
+------------------------------
+->Planning and requirement 
+->Defining
+->designing (HLD and LLD)
+->Building --> developing
+->Testing
+->Deployment --> deploy in production server
+
+Roles in a company
+1.Bussiness analyst - make BRD(business requirement document) document 
+2.Product Manager - Priorities  the task 
+3.Product owner - make Epics for the task (UI,Backend,DB)
+4.Software architect - LLD, HLD
+5.Developers 
+6.QE engineers
+7.DBA
+8.Devops Engineers
+9.Release Managers(Optional)
+10.Technical writers
+
+
+-->For infrastructure automation(making EC2 instance) we have 4 ways:-
+1.AWS CLI
+2.AWS CDK
+3.AWS APIs
+4.AWS CFT
+5.Terraform
+
+AWS CLI
+-------
+1.Login to EC2 instance
+*ssh ubuntu@IPADDRESS
+-> In cmd 
+first make authorized the pem file(key value pair)
+*chmod 600 /filepath/test.pem
+*ssh -i /filepath/test.pem ubuntu@IPADDRESS
+
+->After installing AWS CLI use *aws version you get some message thats means cli is installed.
+->For proper connection use security keys to connect
+*aws configure then add all the security things and authenticate the EC2 instace
+->whatever u enter in the cmd it will reflect in EC2 instance.
+
+->To create S3 bucket in CLI 
+*aws S3 mb babul123
+
+Shell scripting
+---------------
+1.ls -ltr -> details with list of file in pwd
+2.#!/bin/bash -> shebang
+3.nproc - how many CPU are there
+4.set -x #debug mode(show the command whats it executing also print the output)
+5.ps -ef #print the processes
+6.ps -ef | grep "amazon" #use string to show process detail 
+ #| pipe command send the output from first to second command
+7.date | echo"date is"
+output- date is #date will send output to stdin so it will not print date
+8.awk #give the specific column
+ ps -ef | grep amazon | awk -F" "'{print $2}'
+ 2 - column 2
+9.set -e #exit the script when there is an error
+10.set -o #pipefail
+11.wget #download and show the output, curl #show the output in the console
+12.sudo -- go to root user
+13.sudo find / -name pam #find is used to get the name of the file from any directory
+
+Shell Script interview question:
+-------------------------------
+1.write a simple script to list all processes
+ps -ef | awk -F" " '{print $2}'
+
+2.write a script to print only errors from a remote log
+curl api | grep ERROR
+
+<<<
+
+
+
+
+
+
+===========================================================================
+->Have aws CLI in desktop
+->connection to aws account - ssh
+->authenticate to aws account - aws configure and add the security keys
+step1: vi aws_resource_tracker.sh
+step2: writing code
+#!/bin/bash
+################
+#Author: Abhishek
+#This script will report the AWS resource usage
+#################
+
+set -x
+
+# list s3 buckets
+echo "print list of s3 buckets"
+aws s3 ls
+
+# list EC2 instances
+echo "print list of ec2 instances"
+aws ec2 describe-instances | jq '.Reservations[].Instances[].instanseid[]'
+
+#list lambda
+echo "print list of lambda functions"
+aws lambda list-functions
+

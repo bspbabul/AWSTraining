@@ -1,0 +1,110 @@
+System Design
+=============
+Relation database Schema:-
+DNS server:
+->IT is an directory which connect ip address to their respective domian.
+->It store in key value pair.
+
+IF Load in resources are increasing:
+vertical scaling:
+----------------
+->Physical resources of server are increasing leads to wastages at some point of time when request are coming low.
+->If we add resource in the working server we will face a downtime.
+
+Horizontal Scaling:
+------------------
+->I am adding the replica of servers not the physical resources.
+
+=>If i do horizontal scaling i have to add a load balancer (an another server)
+=>In DNS we register load balancer IP with the domain name.
+
+What is Load balancing? 
+-----------------------
+Load balancers are used to increase capacity and reliability of applications. They improve the overall performance of applications by decreasing the burden on servers associated with managing and maintaining application and network sessions, as well as by performing application-specific tasks. 
+
+=>Load balancer have different algorithms for distributing the request in the servers:
+1.Round robin
+
+=>Rate limiting  is user for limit the request for the loadbalancer
+=>Fanout architecture  for microservices
+
+What is Caching? 
+A cache's primary purpose is to increase data retrieval performance by reducing the need to access the underlying slower storage layer. Trading off capacity for speed, a cache typically stores a subset of data transiently, in contrast to databases whose data is usually complete and durable.
+
+=>CDN- Content Del Network -(cloud front)
+=>Lamda - serverless-aws automatically do all the things we dont take care of it.  its very cheap
+===========================================================================System Design
+-------------
+1.System design is the process of designing the elements of a system such as the architecture modules and components, the different interfaces of those component and the data that goes through that system.
+
+HLD -> Describe the main components that would be developed for the resulting product.
+->The system architecture details, database design, service and processes, the relationship between various modules and features.
+
+LLD -> Describes the design of each elements mentioned in the High-Level Design of the system.
+->Classes, interfaces, relationships between different classes and actual logic of the various components.
+
+2.Latency -> network delay + computational delay
+->In monolithic only computational delay but in distributed system we got both network delay and computational delay.
+->For reducing Latency-
+1.Caching-Caching is the process of storing information for a set period of time on a computer
+2.CDN - content delivery network -> CDNs are geographically distributed networks of proxy servers and their objective is to serve content to users more quickly.
+
+3. ThroughPut - it is the amount of data transmitted per unit of time. It is the process flow rate. 
+->It measured in bits per second i.e., bps
+Causes of ThroughPut
+-Latency
+-Protocol overhead
+-congestion
+Improving Throughput
+-CDN
+-Caching
+-Distributed System
+-Load balancer
+-Improving resources
+
+4.Availability -  
+In monolithic architecture the availability is less due to single point of Failure.
+->fault tolerant is directly proportional to availability.
+How to increase Availability:
+1.Replication : include redundancy, but involve the copying of data from one node to another or the synchronization of state between nodes.
+2.Distributed system
+3.Redundancy: Redundancy is the duplication of the nodes in case some of them are failing.
+
+5.Consistency
+->when more than one client request the system for all such requests, it will be called consistent when each client gets the same data. The data should always be consistent, regardless of who is accessing it.
+->when more than one client request the system, for all such requests,when different client get different responses due to some recent update that has not been committed to all systems yet, this reading operation will be called as dirty read.
+
+Factors improving Consistency
+1.Improving Network Bandwidth
+2.Stop the read
+3.Replication based on Distance aware strategies
+
+Types:
+Strong Consistency:
+Eventual consistency
+weak Consistency
+
+6.CAP Theorem
+C-Consistency
+A-Availability
+P-partition Tolerance
+->For a distributed system, the CAP theorem states that it is possible to attend only 2 properties and the third would be always compromised.
+->The system requirement should define which two properties should be chosen over the rest.
+
+Vertical scaling->
+->it means increasing the power of single machine or server by upgrading its hardware resource such as cpu,RAM , storage or processing power.
+
+Horizontal Scaling ->
+->it means adding more machine or servers instead of upgrading one server, workload is distributed among the multiple servers.
+
+Load Balancer
+->its  system that distribute incoming network traffic across multiple servers. It main goal is to ensure high availability, reliability, better performance and efficient use of server resources.
+
+Round Robin Approach:
+this approach is simple and commonly used load balancing algorithms. It distributed incoming requests equally and sequentially among the servers in a circular order.
+->Each server receives requests one by one in turn, ensuring fair and balanced distribution.
+
+a -> b -> c -> a -> b -> c
+
+
+
